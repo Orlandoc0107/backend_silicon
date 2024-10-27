@@ -1,11 +1,9 @@
 const dotenv = require('dotenv');
-const swaggerJSDoc = require('swagger-jsdoc');
-
-dotenv.config();
+dotenv.config('./.env');
 
 const swaggerOptions = {
     definition:{
-    openapi: '3.1.0', // Asegúrate de que esta línea esté presente
+    openapi: '3.0.0', // Asegúrate de que esta línea esté presente
     info: {
       title: 'Backend Silicon',
       version: '1.0.0',
@@ -18,8 +16,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ['.src/routes/*.js'],
+  apis: ['./src/routes/*.js'],
 };
 
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
-module.exports = swaggerDocs;
+module.exports = swaggerOptions;
