@@ -1,4 +1,4 @@
-# Guia de trabajo con Github (mainy develop)
+# Guia de trabajo con Github (main y develop)
 
 Este documento define el flujo de trabajo para mantener un control organizado del código en este proyecto. Sigue estos pasos para evitar conflictos y mantener el proyecto limpio.
 
