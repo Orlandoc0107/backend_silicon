@@ -5,7 +5,7 @@ const router = express.Router();
 /**
  * @openapi
  * tags:
- *   - name: Prueba/Test 2 diididHIDIODIOIODH FKLDFKLDFJKLDFNDdfkdkfk
+ *   - name: Prueba/Test 2/Pepito
  *     description: Endpoint para verificar la disponibilidad del servicio.
  */
 
