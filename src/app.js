@@ -10,6 +10,8 @@ const dotenv = require('dotenv')
 const testRouter = require('./routes/prueba.routes.js')
 const cors = require('cors')
 const corsOptions = require('./config/cors.js')
+// const {ConectionBD} = require('./config/connectionPostgres.js')
+const CreateTables = require('./sql/scriptBD.js')
 
 dotenv.config()
 
@@ -26,6 +28,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set("trust proxy", true)
+// ConectionBD()
+CreateTables()
 // Rutas
 app.get('/', (req, res) => {
 	res.render('index') // Renderiza el archivo index.ejs
