@@ -11,8 +11,17 @@ const cors = require('cors')
 const corsOptions = require('./config/cors.js')
 const CreateTables = require('./sql/scriptBD.js')
 const authRouter = require('./routes/auth.routes.js')
+const adminRoutes = require('./routes/admin.routes.js');
+const productRoutes = require('./routes/product.routes.js');
 
 dotenv.config()
+
+// Rutas para admins y productos.
+
+app.use('/api/usuarios', adminRoutes);
+app.use('/api/productos', productRoutes);
+
+
 
 
 const app = express();
@@ -54,3 +63,4 @@ app.use((req, res) => {
 });
 
 module.exports = app;
+
