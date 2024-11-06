@@ -3,7 +3,7 @@ const { addProductCarrito,
         getAllProductsCarrito, 
         updateProductCarrito, 
         deleteProductCarrito } = require('../controllers/carrito.controllers');
-const router = express.router();
+const router = express.Router();
 
 router.post('/', addProductCarrito);      
 router.put('/:id', updateProductCarrito);    
