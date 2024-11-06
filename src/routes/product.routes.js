@@ -3,12 +3,13 @@ const express = require('express');
 const { createProduct, updateProduct, getAllProducts, getProductById, deleteProduct } = require('../controllers/product.controllers');
 const authorizeAdmin = require('../middleware/authorizeAdmin');
 const validation = require('../middleware/valitation');
+const schemaProduct_Create = require('../schemas/zod')
 const router = express.Router();
 
 
 // Rutas para productos
 // solo los admins pueden crear, actualizar y eliminar
-router.post('/', authorizeAdmin, validation , createProduct);      
+router.post('/', authorizeAdmin, validation(schemaProduct_Create) , createProduct);      
 router.put('/:id', authorizeAdmin, validation, updateProduct);    
 router.delete('/:id', authorizeAdmin, deleteProduct); 
 
