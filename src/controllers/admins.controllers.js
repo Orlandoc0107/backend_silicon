@@ -1,10 +1,10 @@
-const db = require('../sql');
+const MyPool = require('../config/connectionPostgres');
 
 // ver todos los usuarios
 
 const getAllUser = async (req, res) => {
     try {
-        const users = await db.query('SELECT * FROM usuarios');
+        const users = await MyPool.query('SELECT * FROM usuarios');
         res.json(users.rows);
     } catch (error) {
         res.status(500).json({ message: 'Error al obtener los usuarios' });
@@ -16,7 +16,7 @@ const getAllUser = async (req, res) => {
 const getUserById = async (req, res) => {
     const { id_usuario } = req.params;
     try {
-        const user = await db.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id_usuario]);
+        const user = await MyPool.query('SELECT * FROM usuarios WHERE id_usuario = $1', [id_usuario]);
         if (user.rows.length === 0) return res.status(404).json({ message: 'Usuario no encontrado' });
         res.json(user.rows[0]);
     } catch (error) {

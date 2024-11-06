@@ -1,15 +1,16 @@
 // routes/productRoutes.js
 const express = require('express');
 const { createProduct, updateProduct, getAllProducts, getProductById, deleteProduct } = require('../controllers/product.controllers');
-const verifyAdmin = require('../middleware/authorizeAdmin');
+const authorizeAdmin = require('../middlewares/authorizeAdmin');
+const validation = require('../middlewares/valitation');
 const router = express.Router();
 
 
 // Rutas para productos
 // solo los admins pueden crear, actualizar y eliminar
-router.post('/', verifyAdmin, createProduct);      
-router.put('/:id', verifyAdmin, updateProduct);    
-router.delete('/:id', verifyAdmin, deleteProduct); 
+router.post('/', authorizeAdmin, validation , createProduct);      
+router.put('/:id', authorizeAdmin, validation, updateProduct);    
+router.delete('/:id', authorizeAdmin, deleteProduct); 
 
 // las rutas de consulta no requiere permisos de administrador, es accesible para todos.
 router.get('/', getAllProducts);                   

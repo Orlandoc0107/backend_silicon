@@ -1,7 +1,9 @@
+/*se encarga de verificar que el usuario esté autenticado mediante un token JWT. 
+Si no hay token o el token es inválido, deniega el acceso.*/
+
 const jwt = require('jsonwebtoken');
-const MyPool = require('../config/connectionPostgres.js');
 const dotenv = require('dotenv');
-dotenv.config()
+dotenv.config();
 
 const authenticate = (req, res, next) => {
     const token = req.cookies.authToken;
@@ -14,8 +16,8 @@ const authenticate = (req, res, next) => {
         if (err) {
             return res.status(403).json({ error: 'Token inválido' });
         }
-        req.id = decoded.id
-        next(); // Si prefieres continuar al siguiente middleware/ruta
+        req.id = decoded.id;  // El id es extraído del token
+        next(); // Si todo está bien, pasa al siguiente middleware o ruta
     });
 };
 
