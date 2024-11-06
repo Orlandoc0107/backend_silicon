@@ -13,6 +13,7 @@ const CreateTables = require('./sql/scriptBD.js')
 const authRouter = require('./routes/auth.routes.js')
 const adminRoutes = require('./routes/admin.routes.js');
 const productRoutes = require('./routes/product.routes.js');
+const carritoRoutes = require('./routes/carrito.routes.js');
 
 dotenv.config()
 
