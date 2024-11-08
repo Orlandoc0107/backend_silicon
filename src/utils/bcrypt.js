@@ -10,14 +10,6 @@ const hashPassword = async (password) => {
     }
 };
 
-// hashPassword('123456789').then(hashed => {
-//     console.log(hashed);
-// }).catch(error => {
-//     console.log(error);
-// });
-
-// const pass = '$2a$10$aOny1nOD9hSPmI27dyysyO.x5Z5Y2EFOSrpDMCtW1hLgn/g2Fl8Su';
-
 // comparar password
 const comparePassword = async (password, hashedPassword ) => {
     try {
@@ -27,11 +19,5 @@ const comparePassword = async (password, hashedPassword ) => {
         console.log(error);
     }
 };
-
-// comparePassword('123456789', pass).then(comparePassword => {
-//     console.log(comparePassword);
-// }).catch(error => {
-//     console.log(error);
-// });
 
 module.exports = { hashPassword, comparePassword }

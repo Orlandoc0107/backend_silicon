@@ -1,17 +1,29 @@
--- SQLBook: Code
-CREATE TYPE estadoUsuario AS ENUM ('activado','desactivado');
-CREATE TYPE roles AS ENUM ('Cliente','Admin');
+-- Verificar y crear el tipo ENUM estadoUsuario si no existe
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'estadousuario') THEN
+        CREATE TYPE estadoUsuario AS ENUM ('activado', 'desactivado');
+    END IF;
+END $$;
+
+-- Verificar y crear el tipo ENUM roles si no existe
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'roles') THEN
+        CREATE TYPE roles AS ENUM ('Cliente', 'Admin');
+    END IF;
+END $$;
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS usuarios (
-	id SERIAL PRIMARY KEY,
-	nombre VARCHAR(100) NOT NULL,
-	emaIl VARCHAR(150) NOT NULL,
-	pass VARCHAR(150) NOT NULL,
-	rol roles,	
-	estado estadoUsuario 
+	id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+	nombre VARCHAR(100),
+	email VARCHAR(150) NOT NULL UNIQUE,
+	password VARCHAR(150) NOT NULL,
+	rol roles DEFAULT 'Cliente',	
+	estado estadoUsuario DEFAULT 'activado'
 );
-
--- Recomendación de ChatGPT con algunos cambios
 
 -- Tabla para las categorías mayores
 CREATE TABLE categorias_mayores (
@@ -29,7 +41,7 @@ CREATE TABLE categorias_menores (
 -- Tabla de productos, relacionada con las categorías
 CREATE TABLE productos (
     id SERIAL PRIMARY KEY,
-    nombre TEXT NOT NULL,
+    nombre varchar (100) NOT NULL,
     descripcion TEXT,
     stock INT DEFAULT 0,
     categoria_menor_id INT REFERENCES categorias_menores(id)
@@ -37,7 +49,7 @@ CREATE TABLE productos (
 
 INSERT INTO categorias_mayores (nombre) VALUES (
 	'Bebidas',
-	'Cmoida Rápida',
+	'Comida Rápida',
 	'Comida Congelada'
 )
 

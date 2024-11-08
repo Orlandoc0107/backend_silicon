@@ -7,14 +7,15 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerOptions = require('./config/swaggerOptions.js');
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
 const dotenv = require('dotenv')
-const testRouter = require('./routes/prueba.routes.js')
 const cors = require('cors')
 const corsOptions = require('./config/cors.js')
-// const {ConectionBD} = require('./config/connectionPostgres.js')
 const CreateTables = require('./sql/scriptBD.js')
+const authRouter = require('./routes/auth.routes.js')
+const adminRoutes = require('./routes/admin.routes.js');
+const productRoutes = require('./routes/product.routes.js');
+const carritoRoutes = require('./routes/carrito.routes.js');
 
 dotenv.config()
-
 
 const app = express();
 // Middleware de CORS
@@ -31,20 +32,44 @@ app.set("trust proxy", true)
 // ConectionBD()
 CreateTables()
 // Rutas
-app.get('/', (req, res) => {
-	res.render('index') // Renderiza el archivo index.ejs
-})
-app.use('/doc', swaggerUi.serve,
-    swaggerUi.setup(swaggerDocs));
-app.use('/test', testRouter)
-// Manejo de errores
+
+app.get('/', (req, res) => { res.render('index') })
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs,
+    {
+        swaggerOptions: {
+            // Permitir la descarga de la colección de Postman
+            defaultModels: false,
+            docExpansion: 'none', // Opcional: controla cómo se expanden los modelos
+            tagsSorter: 'alpha', // Opcional: ordenar etiquetas alfabéticamente
+            operationsSorter: 'alpha', // Opcional: ordenar operaciones alfabéticamente
+        },
+    }
+));
+
+// Rutas de autenticación
+app.use('/auth', authRouter);
+
+// Rutas de administración de usuarios
+app.use('/userAdmin', adminRoutes);
+
+// Rutas de productos
+app.use('/productos', productRoutes);
+
+// Rutas del carrito de compras
+app.use('/carrito', carritoRoutes);
+
+// Manejo de errores (500 - Server Error)
 app.use((err, req, res, next) => {
     console.error(err.stack); // Loguea el error en la consola
     res.status(500).send('Algo salió mal'); // Mensaje de error genérico
 });
-// Manejo de errores 404
+// Manejo de rutas no encontradas (404)
 app.use((req, res) => {
-    res.status(404).send('No encontrado'); // Mensaje para rutas no encontradas
+    res.status(404).send('Ruta no encontrada');
 });
 
-module.exports =  app;
+
+module.exports = app;
+
+
+
