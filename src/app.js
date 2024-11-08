@@ -14,6 +14,7 @@ const authRouter = require('./routes/auth.routes.js')
 const adminRoutes = require('./routes/admin.routes.js');
 const productRoutes = require('./routes/product.routes.js');
 const carritoRoutes = require('./routes/carrito.routes.js');
+const RegisterAdmin = require('./sql/data.js')
 
 dotenv.config()
 
@@ -31,6 +32,7 @@ app.use(cookieParser());
 app.set("trust proxy", true)
 // ConectionBD()
 CreateTables()
+RegisterAdmin()
 // Rutas
 
 app.get('/', (req, res) => { res.render('index') })

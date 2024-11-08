@@ -1,4 +1,4 @@
-const z = require('zod');
+const {z} = require('zod');
 
 const schemaRegister = z.object({
     email: z.string({message:'Debe ser tipo String'}).email({ message: 'Email inválido' }),
@@ -16,9 +16,16 @@ const schemaLogin = z.object({
 
 const schemaProduct_Create = z.object({
     nombre: z.string().min(3, {message:'El nombre debe tener almenos 3 caracteres'}),
-    description: z.string().min(15, {message:'La descripcion debe tener almenos 15 caracteres'}),
+    descripcion: z.string().min(15, {message:'La descripcion debe tener almenos 15 caracteres'}),
     precio: z.number().positive({message:'El precio debe ser Positivo'}),
     stock: z.number().positive({message:'El stock debe ser Positivo'})
 })
 
-module.exports = { schemaRegister, schemaLogin, schemaProduct_Create };
+const schemaProduct_Update = z.object({
+    nombre: z.string().optional(),
+    descripcion: z.string().optional(),
+    precio: z.number().positive().optional(),
+    stock: z.number().int().nonnegative().optional(),
+});
+
+module.exports = { schemaRegister, schemaLogin, schemaProduct_Create, schemaProduct_Update };

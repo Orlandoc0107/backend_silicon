@@ -1,4 +1,4 @@
-const MyPool = require('../config/connectionPostgres.js');
+const MyPool = require('../config/connectionPostgres');
 const { hashPassword, comparePassword } = require('../utils/bcrypt.js');
 const { generateToken } = require('../utils/token.js');
 
@@ -63,7 +63,6 @@ const Login = async (req, res) => {
             })
             .json({
                 message: 'Login exitoso',
-                token: token // Enviar el token en el body
             });
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);

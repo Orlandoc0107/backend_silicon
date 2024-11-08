@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS categoria_mayor (
 
 CREATE TABLE IF NOT EXISTS productos (
     id_producto SERIAL PRIMARY KEY,
-    nombre VARCHAR(20) NOT NULL,
-    descripcion TEXT
+    name VARCHAR(100) NOT NULL,
+    descripcion TEXT,
+    precio NUMERIC,
+    stock NUMERIC
 );
