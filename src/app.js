@@ -12,8 +12,10 @@ const corsOptions = require('./config/cors.js')
 const CreateTables = require('./sql/scriptBD.js')
 const authRouter = require('./routes/auth.routes.js')
 const adminRoutes = require('./routes/admin.routes.js');
+const userRoutes = require('./routes/user.routes.js');
 const productRoutes = require('./routes/product.routes.js');
 const carritoRoutes = require('./routes/carrito.routes.js');
+const RegisterAdmin = require('./sql/admin.js')
 
 dotenv.config()
 
@@ -31,6 +33,7 @@ app.use(cookieParser());
 app.set("trust proxy", true)
 // ConectionBD()
 CreateTables()
+RegisterAdmin()
 // Rutas
 
 app.get('/', (req, res) => { res.render('index') })
@@ -48,13 +51,12 @@ app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs,
 
 // Rutas de autenticación
 app.use('/auth', authRouter);
-
+// Rutas de usuarios
+app.use('/user', userRoutes);
 // Rutas de administración de usuarios
-app.use('/userAdmin', adminRoutes);
-
+app.use('/admin', adminRoutes);
 // Rutas de productos
 app.use('/productos', productRoutes);
-
 // Rutas del carrito de compras
 app.use('/carrito', carritoRoutes);
 

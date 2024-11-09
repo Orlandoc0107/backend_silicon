@@ -1,4 +1,4 @@
-const MyPool = require('../config/connectionPostgres.js');
+const MyPool = require('../config/connectionPostgres');
 const { hashPassword, comparePassword } = require('../utils/bcrypt.js');
 const { generateToken } = require('../utils/token.js');
 
@@ -16,10 +16,19 @@ const Register = async (req, res) => {
 
         // Hashear contraseña
         const hashedPassword = await hashPassword(password);
-        
+
         // Registrar nuevo usuario (no necesitamos especificar el id, ya que es generado automáticamente)
         const insertUserQuery = 'INSERT INTO usuarios (email, password) VALUES ($1, $2) RETURNING *';
         const insertResult = await MyPool.query(insertUserQuery, [email, hashedPassword]);
+
+        if (insertResult) {
+            // Creando una instancia para el Carrito
+            const userId = insertResult.rows[0].id;
+            const Instancia = await MyPool.query('INSERT INTO carrito (usuario_id) VALUES ($1) RETURNING *', [userId]);
+            if (Instancia) {
+                console.log('Instancia de Carrito creada ...')
+            }
+        }
 
         // Respuesta de éxito
         return res.status(201).json({
@@ -63,7 +72,6 @@ const Login = async (req, res) => {
             })
             .json({
                 message: 'Login exitoso',
-                token: token // Enviar el token en el body
             });
     } catch (error) {
         console.error('Error en el inicio de sesión:', error);
