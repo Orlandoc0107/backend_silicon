@@ -6,15 +6,38 @@ const MyPool = require('../config/connectionPostgres');
 //pero solo ellos pueden cambiar el precio!, consultar con el grupo de como hacer esta excepcion 😊
 
 const addProductCarrito = async (req, res) => {
-    const { nombre, descripcion, precio, stock } = req.body;
+    const { nombre, descripcion, precio, stock, categoria } = req.body;
+
     try {
-        const addNewProduct = await MyPool.query ('INSERT INTO carrito (name, descripcion, precio, stock) VALUES ($1, $2, $3, $4) RETURNING *',
-        [nombre, descripcion, precio, stock]);  
-    res.status(201).json(addNewProduct.rows[0]);
+        // Primero verificamos si la categoría existe
+        let categoriaResult = await MyPool.query('SELECT id FROM categorias WHERE nombre = $1', [categoria]);
+
+        // Si no existe, insertamos la nueva categoría
+        if (categoriaResult.rows.length === 0) {
+            const insertCategoriaQuery = 'INSERT INTO categorias (nombre) VALUES ($1) RETURNING id';
+            const categoriaInsert = await MyPool.query(insertCategoriaQuery, [categoria]);
+            categoriaResult = categoriaInsert;
+            console.log('Categoría creada:', categoria);
+        }
+
+        // Obtenemos el ID de la categoría (ya sea nueva o existente)
+        const categoriaId = categoriaResult.rows[0].id;
+
+        // Insertamos el producto en el carrito, asociando la categoría
+        const addNewProduct = await MyPool.query(
+            'INSERT INTO carrito (name, descripcion, precio, stock, categorias_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+            [nombre, descripcion, precio, stock, categoriaId]
+        );
+
+        // Respondemos con el producto insertado
+        res.status(201).json(addNewProduct.rows[0]);
+
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: 'Error al añadir el producto al carrito', error });
     }
 };
+
 
 
 const getAllProductsCarrito = async (req, res) => {

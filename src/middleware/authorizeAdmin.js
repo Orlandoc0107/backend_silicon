@@ -26,8 +26,8 @@ const authorizeAdmin = (req, res, next) => {
             const query = 'SELECT rol FROM usuarios WHERE id = $1';
             const result = await MyPool.query(query, [req.user.id]);
 
-            if (result.rows.length > 0 && result.rows[0].rol === 'Admin') {
-                // Si el rol es Admin, permite el acceso
+            if (result.rows.length > 0 && result.rows[0].rol === 'admin') {
+                // Si el rol es admin, permite el acceso
                 next();
             } else {
                 return res.status(403).json({ error: 'Acceso denegado: Se requiere rol de administrador' });
