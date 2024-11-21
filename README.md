@@ -50,24 +50,6 @@ implementando características de seguridad, autenticación y autorización.
 * Validación: Zod
 * Documentación API: Swagger
 
-## Estructura del proyecto:
-
-*├── src/
-*|   ├── config/             # archivos de configuración, como la conexión a la base de datos.
-*│   ├── controllers/        # Lógica de los endpoints.
-*│   ├── docs/               # Schemas.
-*│   ├── middlewares/        # Middleware para autenticación y validación.
-*│   ├── models/             # Modelos y consultas a la base de datos.
-*│   ├── routes/             # Definición de rutas.
-*│   ├── schemas/            # Schemas usando Zod.
-*│   ├── sql/                # Scripts SQL para la creación de tablas, índices o procedimientos almacenados.
-*│   ├── utils/              # Funciones auxiliares.
-*│   ├── views/              # plantillas HTML o los archivos de vista que se muestran al usuario.
-*│   └── app.js              # Configuración principal de la aplicación.
-*│   └── run.js              # Iniciar servidor Express                 
-*├── .env.example            # Archivo de ejemplo para variables de entorno.
-*├── package.json            # Información del proyecto y dependencias.
-
 ## Configuración e Instalación:
 1) Clonar el repositorio: git clone https://github.com/Orlandoc0107/backend_silicon.git
 2) Instalar dependencias: cd backend_silicon, npm install
