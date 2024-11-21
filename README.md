@@ -19,14 +19,15 @@ implementando características de seguridad, autenticación y autorización.
 * Validación de datos robusta usando Zod.
 * Seguridad: Autenticación, autorización con JSON Web Tokens (JWT), encriptación de contraseñas con bcrypt.
 
-Los usuarios Administradores podran: 
-- gestionar inventarios,
-- Crear, buscar, actualizar y eliminar productos
-- añadir productos al carrito y realizar la compra.
-Los usuarios Clientes podran:
-- ver productos, filtro por categorías y búsqueda avanzada: cantidad de resultados por pagina.
-- Creación y seguimiento de pedidos.
-- confirmar o cancelar compra.
+# Los usuarios Administradores podran: 
+* gestionar inventarios,
+* Crear, buscar, actualizar y eliminar productos
+* añadir productos al carrito y realizar la compra.
+  
+# Los usuarios Clientes podran:
+* ver productos, filtro por categorías y búsqueda avanzada: cantidad de resultados por pagina.
+* Creación y seguimiento de pedidos.
+* confirmar o cancelar compra.
 
 ## Dependencias Utilizadas:
 * express: Framework web para Node.js.
@@ -43,29 +44,29 @@ Los usuarios Clientes podran:
 * morgan: Middleware para registrar peticiones HTTP.
 
 ## Tecnologías Utilizadas
-Node.js, Express
-Base de Datos: PostgreSQL
-Autenticación: JSON Web Tokens (JWT)
-Validación: Zod
-Documentación API: Swagger
+* Node.js, Express
+* Base de Datos: PostgreSQL
+* Autenticación: JSON Web Tokens (JWT)
+* Validación: Zod
+* Documentación API: Swagger
 
 ## Estructura del proyecto:
 
-├── src/
-|   ├── config/             # archivos de configuración, como la conexión a la base de datos.
-│   ├── controllers/        # Lógica de los endpoints.
-│   ├── docs/               # Schemas.
-│   ├── middlewares/        # Middleware para autenticación y validación.
-│   ├── models/             # Modelos y consultas a la base de datos.
-│   ├── routes/             # Definición de rutas.
-│   ├── schemas/            # Schemas usando Zod.
-│   ├── sql/                # Scripts SQL para la creación de tablas, índices o procedimientos almacenados.
-│   ├── utils/              # Funciones auxiliares.
-│   ├── views/              # plantillas HTML o los archivos de vista que se muestran al usuario.
-│   └── app.js              # Configuración principal de la aplicación.
-│   └── run.js              # Iniciar servidor Express                 
-├── .env.example            # Archivo de ejemplo para variables de entorno.
-├── package.json            # Información del proyecto y dependencias.
+*├── src/
+*|   ├── config/             # archivos de configuración, como la conexión a la base de datos.
+*│   ├── controllers/        # Lógica de los endpoints.
+*│   ├── docs/               # Schemas.
+*│   ├── middlewares/        # Middleware para autenticación y validación.
+*│   ├── models/             # Modelos y consultas a la base de datos.
+*│   ├── routes/             # Definición de rutas.
+*│   ├── schemas/            # Schemas usando Zod.
+*│   ├── sql/                # Scripts SQL para la creación de tablas, índices o procedimientos almacenados.
+*│   ├── utils/              # Funciones auxiliares.
+*│   ├── views/              # plantillas HTML o los archivos de vista que se muestran al usuario.
+*│   └── app.js              # Configuración principal de la aplicación.
+*│   └── run.js              # Iniciar servidor Express                 
+*├── .env.example            # Archivo de ejemplo para variables de entorno.
+*├── package.json            # Información del proyecto y dependencias.
 
 ## Configuración e Instalación:
 1) Clonar el repositorio: git clone https://github.com/Orlandoc0107/backend_silicon.git
