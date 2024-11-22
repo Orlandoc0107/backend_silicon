@@ -16,6 +16,7 @@ const userRoutes = require('./routes/user.routes.js');
 const productRoutes = require('./routes/product.routes.js');
 const carritoRoutes = require('./routes/carrito.routes.js');
 const RegisterAdmin = require('./sql/admin.js')
+const ordenRoutes = require('./routes/orden.routes.js')
 
 dotenv.config()
 
@@ -59,6 +60,8 @@ app.use('/admin', adminRoutes);
 app.use('/productos', productRoutes);
 // Rutas del carrito de compras
 app.use('/carrito', carritoRoutes);
+// Rutas de ordenes
+app.use('/orden', ordenRoutes);
 
 // Manejo de errores (500 - Server Error)
 app.use((err, req, res, next) => {
