@@ -1,0 +1,15 @@
+services:
+  backendSilicon:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: myuser        
+      POSTGRES_PASSWORD: mypassword  
+      POSTGRES_DB: mydatabase        
+    ports:
+      - "5433:5432"                  
+    volumes:
+      - pg_data:/var/lib/postgresql/data  # Persistencia de datos
+
+volumes:
+  pg_data:
